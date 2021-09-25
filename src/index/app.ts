@@ -80,6 +80,8 @@ view.on("click", async (e) => {
   const riskLayers = floodRisk.layers as Collection<FeatureLayer>;
 
   const promises = riskLayers.map(async (layer) => {
+    console.log("Run query");
+
     const layerView = await view.whenLayerView(layer);
 
     const query = layerView.createQuery();
@@ -97,7 +99,9 @@ view.on("click", async (e) => {
   await elevation.load();
   const elevationResult = await elevation.queryElevation(pointOnMap);
 
-  console.log("Elevation", elevationResult);
+  console.log("Elevation", (elevationResult.geometry as Point).z);
+
+  console.log("Done");
 });
 
 view.ui.add(
